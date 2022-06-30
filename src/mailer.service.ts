@@ -1,11 +1,5 @@
 import { SentMessageInfo, Transporter } from 'nodemailer';
 
-/** Constants **/
-import {
-  MAILER_OPTIONS,
-  MAILER_TRANSPORT_FACTORY,
-} from './constants/mailer.constant';
-
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
 import { ISendMailOptions } from './interfaces/send-mail-options.interface';
