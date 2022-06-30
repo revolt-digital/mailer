@@ -5,8 +5,8 @@ import {MailerService} from '../src/index';
       host: "smtp.mailtrap.io",
       port: 2525,
       auth: {
-        user: '13671c024964a4',
-        pass: '2138443cf7d6af',
+        user:process.env.USER,
+        pass: process.env.PASS,
       },
     },
     defaults: {
