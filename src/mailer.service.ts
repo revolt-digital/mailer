@@ -12,7 +12,7 @@ export class MailerService {
 
   constructor(
     private readonly mailerOptions: MailerOptions,
-    private readonly transportFactory: IMailerTransportFactory,
+    private readonly transportFactory: any,
   ) {
     if (!transportFactory) {
       this.transportFactory = new MailerTransportFactory(mailerOptions);
