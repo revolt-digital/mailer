@@ -1,25 +1,27 @@
 import {MailerService} from '../src/index';
 
-exports.sendEmail = async () => {
   const generalOptions = {
     transport: {
       host: "smtp.mailtrap.io",
       port: 2525,
       auth: {
-        user: process.env.EMAIL_ID,
-        pass: process.env.EMAIL_PASS,
+        user: '13671c024964a4',
+        pass: '2138443cf7d6af',
       },
     },
     defaults: {
       from: '"revolt" <revolt@outlook.com>',
     },
   }
-  const sender = new MailerService(generalOptions, false);
+  const sender = new MailerService(generalOptions);
   let senderOptions = {
-    to: 'user@gmail.com',
+    to: 'aazcast@gmail.com',
     subject: 'Testing Revolt Mailer module',
-    template: '<p>Hola</p>'
+    html: '<p>Hola</p>'
   }
 
-  await sender.sendMail(senderOptions);
-}
+  sender.sendMail(senderOptions).then((val)=> {
+    //result of sending
+  }).catch((err) => {
+    //handle error
+  });
