@@ -3,25 +3,17 @@ import { SentMessageInfo, Transporter } from 'nodemailer';
 /** Interfaces **/
 import { MailerOptions } from './interfaces/mailer-options.interface';
 import { ISendMailOptions } from './interfaces/send-mail-options.interface';
-import { MailerTransportFactory as IMailerTransportFactory } from './interfaces/mailer-transport-factory.interface';
 import { MailerTransportFactory } from './mailer-transport.factory';
 
 export class MailerService {
   private transporter!: Transporter;
   private transporters = new Map<string, Transporter>();
 
-  constructor(
-    private readonly mailerOptions: MailerOptions,
-    private readonly transportFactory: any,
-  ) {
+  constructor(private readonly mailerOptions: MailerOptions, private readonly transportFactory?: any) {
     if (!transportFactory) {
       this.transportFactory = new MailerTransportFactory(mailerOptions);
     }
-    if (
-      (!mailerOptions.transport ||
-        Object.keys(mailerOptions.transport).length <= 0) &&
-      !mailerOptions.transports
-    ) {
+    if ((!mailerOptions.transport || Object.keys(mailerOptions.transport).length <= 0) && !mailerOptions.transports) {
       throw new Error(
         'Make sure to provide a nodemailer transport configuration object, connection url or a transport plugin instance.',
       );
@@ -30,12 +22,7 @@ export class MailerService {
     /** Transporters setup **/
     if (mailerOptions.transports) {
       Object.keys(mailerOptions.transports).forEach((name) => {
-        this.transporters.set(
-          name,
-          this.transportFactory.createTransport(
-            this.mailerOptions.transports![name],
-          ),
-        );
+        this.transporters.set(name, this.transportFactory.createTransport(this.mailerOptions.transports![name]));
       });
     }
 
@@ -45,21 +32,12 @@ export class MailerService {
     }
   }
 
-  public async sendMail(
-    sendMailOptions: ISendMailOptions,
-  ): Promise<SentMessageInfo> {
+  public async sendMail(sendMailOptions: ISendMailOptions): Promise<SentMessageInfo> {
     if (sendMailOptions.transporterName) {
-      if (
-        this.transporters &&
-        this.transporters.get(sendMailOptions.transporterName)
-      ) {
-        return await this.transporters
-          .get(sendMailOptions.transporterName)!
-          .sendMail(sendMailOptions);
+      if (this.transporters && this.transporters.get(sendMailOptions.transporterName)) {
+        return await this.transporters.get(sendMailOptions.transporterName)!.sendMail(sendMailOptions);
       } else {
-        throw new ReferenceError(
-          `Transporters object doesn't have ${sendMailOptions.transporterName} key`,
-        );
+        throw new ReferenceError(`Transporters object doesn't have ${sendMailOptions.transporterName} key`);
       }
     } else {
       if (this.transporter) {

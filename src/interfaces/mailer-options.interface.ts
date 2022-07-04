@@ -7,8 +7,24 @@ import * as StreamTransport from 'nodemailer/lib/stream-transport';
 import * as JSONTransport from 'nodemailer/lib/json-transport';
 import * as SESTransport from 'nodemailer/lib/ses-transport';
 
+
+
+export interface ISMTPSettings extends SMTPTransport.Options {
+  host: string,
+  port: number,
+  auth: {
+    user: string,
+    pass: string
+  }
+}
+
+export interface DefaultTypes {
+  from: string
+}
+
 type Options =
-  | SMTPTransport.Options
+  | ISMTPSettings
+  | DefaultTypes
   | SMTPPool.Options
   | SendmailTransport.Options
   | StreamTransport.Options
@@ -35,3 +51,4 @@ export interface MailerOptions {
   };
   options?: { [name: string]: any };
 }
+
