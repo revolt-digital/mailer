@@ -17,27 +17,35 @@ A package to handle email sending with nodemailer.
   yarn add @revolt-digital/mailer
 ```
 
-- Step 1, create one handler file check example in this case: sender.js file, where we can define the transport types we are going to use. import and create transport, Note: Define this transport in server.ts/app.ts (main expressjs file) is not a good practice.
+- Step 1, create one handler file check example in this case: sender.js file, where we can define the transport types we are going to use. import and create transport, Note: Define this transport in server.ts/app.ts (main expressjs file) to use it globally is not a good practice.
 
 ```javascript
-import { MailerService } from '@revolt-digital/mailer';
-const sender = new MailerService({
-    transport: {
+import { MailerService, ISendMailOptions } from '@revolt-digital/mailer';
+
+export const sendMail = async (options:ISendMailOptions) => {
+  try {
+    const sender = new MailerService({
+      transport: {
         host: 'smtp.mailtrap.io',
         port: 2525,
         auth: {
-            user: "13671c024964a4",
-            pass: "2138443cf7d6af"
+          user: process.env.USERNAME,
+          pass: process.env.PASSWORD
         },
-    },
-    defaults: {
+      },
+      defaults: {
         from: "info@revolt.digital"
-    }
-});
-export const sendMail = sender.sendMail;
+      }
+    });
+    await sender.sendMail(options);
+    return;
+  } catch (err) {
+    throw err;
+  }
+}
 ```
 
-- Step 2, import and assign ref to your `div wrapper element`.
+- Step 2, import sender handler and send email`.
 
 ```javascript
 import {sendMail} from './sender';

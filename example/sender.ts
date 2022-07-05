@@ -1,17 +1,23 @@
-import { MailerService } from '/Users/aaz/Workspace/Revolt/modules/mailer/lib/cjs/index';
+import { MailerService, ISendMailOptions } from '@revolt-digital/mailer';
 
-const sender = new MailerService({
-  transport: {
-    host: 'smtp.mailtrap.io',
-    port: 2525,
-    auth: {
-      user: "13671c024964a4",
-      pass: "2138443cf7d6af"
-    },
-  },
-  defaults: {
-    from: "info@revolt.digital"
+export const sendMail = async (options:ISendMailOptions) => {
+  try {
+    const sender = new MailerService({
+      transport: {
+        host: process.env.HOST,
+        port: process.env.PORT,
+        auth: {
+          user: process.env.USER,
+          pass: process.env.PASSWORD
+        },
+      },
+      defaults: {
+        from: process.env.FROM
+      }
+    });
+    await sender.sendMail(options);
+    return;
+  } catch (err) {
+    throw err;
   }
-});
-
-export const sendMail = sender.sendMail;
+}

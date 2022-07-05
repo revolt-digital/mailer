@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@revolt-digital/mailer@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@revolt-digital/mailer/-/mailer-0.0.1.tgz#f1ba5bb4f63d37da9c51d2ec8ef510d1df51f954"
+  integrity sha512-ru5ApehI8a9lCsrbj1DCqdNEKpICE13ZWOXHpVC2TXzEwSxacgIQo2m4JDTn88pzlgiUJS0MnDChD3sNRSyMOQ==
+  dependencies:
+    nodemailer "^6.7.6"
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -840,6 +847,11 @@ negotiator@0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.3.tgz#58e323a72fedc0d6f9cd4d31fe49f51479590ccd"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
+
+nodemailer@^6.7.6:
+  version "6.7.6"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.7.6.tgz#d3de8f644eaa0dad784d1be1375c596de492f3fc"
+  integrity sha512-/6KF/umU7r7X21Y648/yiRLrgkfz0dmpyuo4BfgYWIpnT/jCbkPTvegMfxCsDAu+O810p2L1BGXieMTPp3nJVA==
 
 nodemon@^2.0.18:
   version "2.0.18"
